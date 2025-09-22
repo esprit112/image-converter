@@ -1,6 +1,6 @@
 # Batch Image Converter
 
-Batch Image Converter is a small GUI tool (Tkinter + Pillow) for batch-processing images in a folder. It can convert images to grayscale and/or invert their colors while preserving transparency. Outputs are saved next to the originals with clear suffixes.
+Batch Image Converter is a small GUI tool (Tkinter + Pillow) for batch-processing images in a folder. It can convert images to grayscale and/or invert their colours while preserving transparency. Outputs are saved next to the originals with clear suffixes.
 
 - GUI: Tkinter
 - Image processing: Pillow (PIL)
@@ -13,7 +13,7 @@ Batch Image Converter is a small GUI tool (Tkinter + Pillow) for batch-processin
 - Outputs saved with suffixes:
   - <original name> - Grayscale.<ext>
   - <original name> - Inverted.<ext>
-- Option to open output folder automatically after conversion.
+- Option to open the output folder automatically after conversion.
 - Progress bar during processing (auto-hides 10 seconds after completion).
 - Preview pane for selected files.
 - Choose output format: PNG, JPEG, or WEBP.
@@ -36,16 +36,16 @@ pip install pillow
 3. The file list will populate with supported images.
 4. Select options:
    - Check "Convert to grayscale" to create grayscale outputs.
-   - Check "Invert images" to create inverted-color outputs.
+   - Check "Invert images" to create inverted-colour outputs.
    - Select an output format (PNG recommended to preserve alpha).
    - Optionally check "Open output folder after conversion".
 5. Click "Convert Images" to start.
-6. Monitor progress in the progress bar. When finished a small popup confirms completion; the progress bar resets and hides after 10 seconds.
+6. Monitor progress in the progress bar. When finished, a small pop-up confirms completion; the progress bar resets and hides after 10 seconds.
 7. Converted files are saved in the same folder with the suffixes shown above.
 
 Notes:
 - If both operations are selected, the app uses the grayscale output as the input for the invert step (so "Invert" after "Grayscale" yields an inverted grayscale image).
-- JPEG does not support alpha; when choosing JPEG the alpha channel will be flattened.
+- JPEG does not support alpha; when choosing JP, EG, the alpha channel will be flattened.
 
 ## Example
 Original: photo.jpg  
@@ -53,7 +53,7 @@ Outputs:
 - photo - Grayscale.png
 - photo - Inverted.png
 
-If you choose JPEG as output format:
+If you choose JPEG as the output format:
 - photo - Grayscale.jpeg
 - photo - Inverted.jpeg
 
@@ -77,8 +77,6 @@ To contribute:
 ## License — GNU GENERAL PUBLIC LICENSE v3.0
 This project is licensed under the GNU GPL v3.0. A copy of the license follows.
 
-[Full license text begins here]
-
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 
@@ -86,15 +84,11 @@ Copyright (C) 2007 Free Software Foundation, Inc. <https://fsf.org/>
 Everyone is permitted to copy and distribute verbatim copies
 of this license document, but changing it is not allowed.
 
-... (full license text) ...
-
-To view the full license, see: https://www.gnu.org/licenses/gpl-3.0.en.html
+To view the full license, see: https://www.gnu.org/licenses/gpl-3.0.en.html.
 
 You should include a LICENSE file in your repository containing the full GPLv3 text and add the appropriate copyright notice, for example:
 
-Copyright (C) 2025 Your Name
-
-Replace "Your Name" with your name or organization.
+Copyright (C) 2025 Martin Greer
 
 ## Files
 - batch_image_converter.py — main script
@@ -102,4 +96,7 @@ Replace "Your Name" with your name or organization.
 - LICENSE — GNU GPL v3.0 full text
 
 ## Contact
+
 Create issues or pull requests on the repository. Include a short description and steps to reproduce for bugs.
+
+<img width="751" height="444" alt="app-screenshot" src="https://github.com/user-attachments/assets/765dfc90-3627-403e-b419-1d3ed71454dc" />
