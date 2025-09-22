@@ -1,5 +1,87 @@
-import os
+#!/usr/bin/env python3
 import sys
+import os
+import subprocess
+import pkgutil
+
+# ---------------------------
+# Dependency check + installer
+# ---------------------------
+REQUIRED_PKGS = ["PIL"]  # Pillow provides the "PIL" package name
+
+def has_tkinter():
+    try:
+        import tkinter  # type: ignore
+        return True
+    except Exception:
+        return False
+
+def check_requirements():
+    missing = []
+    for pkg in REQUIRED_PKGS:
+        if not pkgutil.find_loader(pkg):
+            missing.append(pkg)
+    if not has_tkinter():
+        missing.append("tkinter")
+    return missing
+
+def prompt_yes_no(question):
+    try:
+        ans = input(f"{question} [y/N]: ").strip().lower()
+    except EOFError:
+        return False
+    return ans in ("y", "yes", "y\n")
+
+def install_packages(pkgs):
+    python = sys.executable
+    cmd = [python, "-m", "pip", "install", "--upgrade"] + pkgs
+    print("Running:", " ".join(cmd))
+    try:
+        proc = subprocess.run(cmd, check=False)
+        return proc.returncode == 0
+    except Exception as e:
+        print("Install failed:", e)
+        return False
+
+def main_check():
+    missing = check_requirements()
+    if not missing:
+        return True
+    print("Missing dependencies detected:", ", ".join(missing))
+    if not prompt_yes_no("Install missing dependencies now?"):
+        print("Exiting. Install required packages and re-run the script.")
+        return False
+
+    pip_install = [m for m in missing if m != "tkinter"]
+    ok = True
+    if pip_install:
+        ok = install_packages(pip_install)
+
+    if "tkinter" in missing:
+        print("\nNote: 'tkinter' is usually a system package and not installable via pip.")
+        print("Examples to install tkinter:")
+        print("  Debian/Ubuntu: sudo apt install python3-tk")
+        print("  Fedora/RHEL:   sudo dnf install python3-tkinter")
+        print("  Arch:          sudo pacman -S tk")
+        print("  macOS: Use the official Python installer or Homebrew's python which includes Tk")
+        if not prompt_yes_no("Have you installed the system package for tkinter now?"):
+            return False
+
+    if not ok:
+        print("Some pip installs failed. Please install them manually and re-run.")
+        return False
+
+    # Re-exec the script so newly-installed packages can be imported
+    print("Re-launching script to apply changes...")
+    os.execv(sys.executable, [sys.executable] + sys.argv)
+
+if __name__ == "__main__":
+    if not main_check():
+        sys.exit(1)
+
+# ---------------------------
+# Main app imports and code
+# ---------------------------
 import threading
 import time
 import tkinter as tk
@@ -209,7 +291,7 @@ def process_folder(folder, files, do_grayscale, do_invert, open_after, out_forma
     def _clear_progress():
         try:
             progress_var.set(0)
-            progress_bar.pack_forget()  # hide the progress bar
+            progress_bar.pack_forget()
         except Exception:
             pass
 
